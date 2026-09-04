@@ -2,7 +2,7 @@
 
 Halaman satu-file (`index.html`) yang menampilkan dan **mengelompokkan seluruh repository** dari [github.com/antono4](https://github.com/antono4) — original maupun fork — dalam tampilan galeri yang rapi dan responsif.
 
-![Beranda halaman](screenshots/screenshot-beranda.png)
+![Beranda halaman](screenshots/screenshot-beranda.jpg)
 
 ## ✨ Fitur
 
@@ -20,10 +20,10 @@ Halaman satu-file (`index.html`) yang menampilkan dan **mengelompokkan seluruh r
 ## 📸 Screenshot
 
 ### Pencarian repository
-![Pencarian repository](screenshots/screenshot-pencarian.png)
+![Pencarian repository](screenshots/screenshot-pencarian.jpg)
 
 ### Fork & Kontribusi
-![Fork & Kontribusi](screenshots/screenshot-fork.png)
+![Fork & Kontribusi](screenshots/screenshot-fork.jpg)
 
 ## 🚀 Cara Pakai
 
