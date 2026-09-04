@@ -83,19 +83,29 @@ a { color:inherit; text-decoration:none; }
 ::-webkit-scrollbar-track { background: transparent; }
 :focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:8px; }
 
-/* Theme toggle */
+/* Theme toggle — Mode Siang/Malam */
 .theme-toggle {
   position:fixed; top:1rem; right:1rem; z-index:100;
-  width:44px; height:44px; border-radius:13px;
+  display:inline-flex; align-items:center; gap:.55rem;
+  padding:.55rem .95rem; border-radius:999px;
   background: var(--card); border:1px solid var(--border);
   color: var(--text); cursor:pointer;
-  display:grid; place-items:center;
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   box-shadow: var(--glow);
   transition: transform .2s, border-color .2s, background .3s;
+  font-family: inherit; font-size:.82rem; font-weight:650; line-height:1;
 }
-.theme-toggle:hover { transform: translateY(-2px) rotate(8deg); border-color: var(--accent); }
-.theme-toggle svg { width:19px; height:19px; }
+.theme-toggle:hover { transform: translateY(-2px); border-color: var(--accent); }
+.theme-toggle:active { transform: scale(.95); }
+.theme-toggle svg { width:17px; height:17px; transition: transform .3s; }
+.theme-toggle:hover svg { transform: rotate(20deg); }
+.theme-label { display:inline-flex; }
+.theme-label span { line-height:1; }
+/* Default = dark (label "Malam" tampil) */
+.theme-label .theme-label-dark { display:inline; }
+.theme-label .theme-label-light { display:none; }
+[data-theme="light"] .theme-label .theme-label-light { display:inline; }
+[data-theme="light"] .theme-label .theme-label-dark { display:none; }
 .theme-toggle .icon-sun { display:none; }
 [data-theme="light"] .theme-toggle .icon-sun { display:block; }
 [data-theme="light"] .theme-toggle .icon-moon { display:none; }
@@ -328,9 +338,10 @@ footer a:hover { text-decoration:underline; color:#7ec4ff; }
 <body>
 <div class="container">
 
-  <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema" title="Ganti tema gelap/terang">
+  <button class="theme-toggle" id="themeToggle" aria-label="Ganti mode siang/malam" title="Ganti mode siang/malam">
     <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
     <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+    <span class="theme-label"><span class="theme-label-dark">Malam</span><span class="theme-label-light">Siang</span></span>
   </button>
 
   <header class="hero">
@@ -572,10 +583,14 @@ const DATA = [{"name": "-Food-Plate", "html_url": "https://github.com/antono4/-F
     }
   }
 
-  // theme toggle
+  // mode siang/malam — toggle
   const themeToggle = document.getElementById('themeToggle');
   const savedTheme = localStorage.getItem('theme');
-  if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
   themeToggle.addEventListener('click', () => {
     const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', cur);
