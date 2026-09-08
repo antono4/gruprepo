@@ -1,0 +1,46 @@
+name: Perbarui data repository
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-repo-data
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Perbarui data dari GitHub API
+        run: node scripts/update-repos.js
+
+      - name: Deteksi perubahan
+        id: changed
+        run: |
+          changed="false"
+          git diff --quiet -- index.html README.md || changed="true"
+          echo "has_changes=$changed" >> "$GITHUB_OUTPUT"
+
+      - name: Commit hasil perbaruan
+        if: steps.changed.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html README.md
+          git commit -m "chore: perbarui data repository"
+
+      - name: Push ke main
+        if: steps.changed.outputs.has_changes == 'true'
+        run: git push origin HEAD:main
+
+      - name: Selesai
+        if: always()
+        run: echo "Selesai — data repository telah diperbarui otomatis setiap 10 menit."
