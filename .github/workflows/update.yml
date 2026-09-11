@@ -39,7 +39,9 @@ jobs:
 
       - name: Push ke main
         if: steps.changed.outputs.has_changes == 'true'
-        run: git push https://x-access-token:${GITHUB_TOKEN}@github.com/antono4/gruprepo.git HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: git push "https://x-access-token:${GITHUB_TOKEN}@github.com/antono4/gruprepo.git" HEAD:main
 
       - name: Selesai
         if: always()
