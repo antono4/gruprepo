@@ -1,7 +1,8 @@
 name: Perbarui data repository
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    # setiap 10 menit
+    - cron: '2-59/10 * * * *'
   workflow_dispatch:
 
 permissions:
