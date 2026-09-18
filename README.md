@@ -15,6 +15,7 @@ Halaman satu-file (`index.html`) yang menampilkan dan **mengelompokkan seluruh r
 | 🧩 **Chip kategori** | Lompat cepat antar-kelompok repository |
 | ⑂ **Toggle fork** | Fork tersembunyi secara default; klik *"Tampilkan fork"* untuk menampilkan 199 fork |
 | 🏷️ **Badge & metrik** | Lisensi (MIT, Apache-2.0, dll.), bahasa dengan warna khas GitHub, ⭐ bintang, fork count, dan waktu update |
+| 🌗 **Switch tema** | Tombol switch siang/malam di pojok kanan atas — tersimpan otomatis di localStorage |
 | 📱 **Responsif** | Grid adaptif dari desktop hingga perangkat mobile — tema gelap khas GitHub |
 
 ## 📸 Screenshot
