@@ -1,7 +1,7 @@
 name: Perbarui data repository
 on:
   schedule:
-    # setiap 10 menit
+    # setiap ~10 menit (dipertahankan sesuai keputusan main), tiap run loop 120s
     - cron: '2-59/10 * * * *'
   workflow_dispatch:
 
@@ -20,30 +20,11 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Perbarui data dari GitHub API
-        run: node scripts/update-repos.js
-
-      - name: Deteksi perubahan
-        id: changed
-        run: |
-          changed="false"
-          git diff --quiet -- index.html README.md || changed="true"
-          echo "has_changes=$changed" >> "$GITHUB_OUTPUT"
-
-      - name: Commit hasil perbaruan
-        if: steps.changed.outputs.has_changes == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add index.html README.md
-          git commit -m "chore: perbarui data repository"
-
-      - name: Push ke main
-        if: steps.changed.outputs.has_changes == 'true'
+      - name: Perbarui data otomatis (loop ±2 menit)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: git push "https://x-access-token:${GITHUB_TOKEN}@github.com/antono4/gruprepo.git" HEAD:main
+        run: bash scripts/update-loop.sh
 
       - name: Selesai
         if: always()
-        run: echo "Selesai — data repository telah diperbarui otomatis setiap 10 menit."
+        run: echo "Selesai — data repository diperbarui berulang setiap ±2 menit dalam tiap run."
