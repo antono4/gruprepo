@@ -47,8 +47,8 @@ python3 -m http.server 8080
 
 | Metrik | Jumlah |
 |---|---:|
-| Total repository | **395** |
-| Repository original | **186** |
+| Total repository | **396** |
+| Repository original | **187** |
 | Fork & kontribusi | **209** |
 | Total ⭐ | **176** |
 
