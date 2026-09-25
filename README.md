@@ -50,7 +50,7 @@ python3 -m http.server 8080
 | Total repository | **402** |
 | Repository original | **191** |
 | Fork & kontribusi | **211** |
-| Total ⭐ | **78** |
+| Total ⭐ | **77** |
 
 ## 🔗 Tautan
 
